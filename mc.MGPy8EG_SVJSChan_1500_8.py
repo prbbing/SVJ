@@ -88,7 +88,7 @@ evgenConfig.description = "Semivisible jets s-chan"
 evgenConfig.keywords+=['BSM','sChannel']
 evgenConfig.generators+=["MadGraph","Pythia8","EvtGen"]
 evgenConfig.contact  = ['bingxuan.liu@cern.ch']
-evgenConfig.process = "p p --> Xd Xd~ j j"
+evgenConfig.process = "p p --> xd xd~ j j"
 
 include("Pythia8_i/Pythia8_A14_NNPDF23LO_EvtGen_Common.py")
 include("Pythia8_i/Pythia8_MadGraph.py")
