@@ -28,11 +28,25 @@ masses={
     '5000001': str(Mz)
 }
 
+dminputs={
+    '2': str(1),
+    '4': str(0.1),
+    '5': str(0.1),
+    '6': str(0.1),
+    '7': str(0.1),
+    '8': str(0.1),
+    '9': str(0.1),
+    '25': str(0),
+    '27': str(0),
+    '28': str(0)
+}
+
 decays={
     '5000001': 'auto'
 }
 
 params={'MASS':masses,
+        'DMINPUTS':dminputs,
         'DECAY':decays}
 
 my_process = """
@@ -44,8 +58,15 @@ add process p p > xd xd~ j j
 output -f
 """
 
-run_settings = {'xqcut':100, 
-               'nevents':int(nevents)
+run_settings = {'nevents':int(nevents),
+                'lhe_version':'3.0',
+                'cut_decays':'F',
+                'ickkw'        : 0,
+                'drjj'         : 0.0,
+                'maxjetflavor' : 5,
+                'xqcut'        : 0.0,
+                'ktdurham'     : 100,
+                'dparameter'   : 0.4,
                 }
 
 process_dir = new_process(my_process)
@@ -111,9 +132,10 @@ genSeq.Pythia8.Commands+=["HiddenValley:spinFv = 0"]
 genSeq.Pythia8.Commands+=["HiddenValley:FSR = on"]
 genSeq.Pythia8.Commands+=["HiddenValley:fragment = on"]
 genSeq.Pythia8.Commands+=["HiddenValley:alphaOrder = 1"]
-genSeq.Pythia8.Commands+=["HiddenValley:Lambda = 0.1"]
+genSeq.Pythia8.Commands+=["HiddenValley:Lambda = 5.0"]
 genSeq.Pythia8.Commands+=["HiddenValley:pTminFSR = 1.1"]
 genSeq.Pythia8.Commands+=["HiddenValley:probVector = 0.75"]
+genSeq.Pythia8.Commands+=["HiddenValley:nFlav  = 2 "]
 
 genSeq.Pythia8.Commands+=["4900001:m0 = 5000"]
 genSeq.Pythia8.Commands+=["4900002:m0 = 5000"]
@@ -140,22 +162,22 @@ genSeq.Pythia8.Commands+=["4900211:m0 = 20.0"]
 genSeq.Pythia8.Commands+=["4900213:m0 = 20.0"]
 
 genSeq.Pythia8.Commands+=["4900111:onechannel = 1 {0} 91 -3 3".format(1 - Rinv)] # check Rinv syntax
-genSeq.Pythia8.Commands+=["4900111:addchannel = 1 {0} 0 12 -12".format(Rinv)]
+genSeq.Pythia8.Commands+=["4900111:addchannel = 1 {0} 0 51 -51".format(Rinv)]
 
 genSeq.Pythia8.Commands+=["4900113:onechannel = 1 {0}  91 -1 1".format((1-Rinv)/5)] 
 genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0}  91 -2 2".format((1-Rinv)/5)]
 genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0}  91 -3 3".format((1-Rinv)/5)]
 genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0}  91 -4 4".format((1-Rinv)/5)]
 genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0}  91 -5 5".format((1-Rinv)/5)]
-genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0} 0 12 -12".format(Rinv)] 
+genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0} 0 53 -53".format(Rinv)] 
 
 #s-channel specific
 genSeq.Pythia8.Commands+=["4900211:onechannel = 1 {0} 91 -3 3".format(1 - Rinv)] # check Rinv syntax
-genSeq.Pythia8.Commands+=["4900211:addchannel = 1 {0} 0 12 -12".format(Rinv)]
+genSeq.Pythia8.Commands+=["4900211:addchannel = 1 {0} 0 51 -51".format(Rinv)]
 genSeq.Pythia8.Commands+=["4900213:onechannel = 1 {0}  91 -1 1".format((1-Rinv)/5)] 
 genSeq.Pythia8.Commands+=["4900213:addchannel = 1 {0}  91 -2 2".format((1-Rinv)/5)]
 genSeq.Pythia8.Commands+=["4900213:addchannel = 1 {0}  91 -3 3".format((1-Rinv)/5)]
 genSeq.Pythia8.Commands+=["4900213:addchannel = 1 {0}  91 -4 4".format((1-Rinv)/5)]
 genSeq.Pythia8.Commands+=["4900213:addchannel = 1 {0}  91 -5 5".format((1-Rinv)/5)]
-genSeq.Pythia8.Commands+=["4900213:addchannel = 1 {0} 0 12 -12".format(Rinv)] 
+genSeq.Pythia8.Commands+=["4900213:addchannel = 1 {0} 0 -53 -53".format(Rinv)] 
 
