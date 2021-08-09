@@ -174,7 +174,4 @@ genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0}  91 -4 4".format((1-Rinv)/
 genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0}  91 -5 5".format((1-Rinv)/5)]
 genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0} 0 53 -53".format(Rinv)] 
 
-genSeq.Pythia8.Commands+=["4900211:addchannel = 1 1.0 0 51 -51"]
-genSeq.Pythia8.Commands+=["4900213:addchannel = 1 1.0 0 53 -53"]
-
 genSeq.Pythia8.Commands+=["Merging:mayRemoveDecayProducts=on"] 
