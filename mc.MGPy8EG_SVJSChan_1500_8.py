@@ -1,4 +1,3 @@
-import MadGraphControl.MadGraph_NNPDF30NLO_Base_Fragment
 from MadGraphControl.MadGraphUtils import *
 import re
 import math, cmath
@@ -53,10 +52,10 @@ params={'MASS':masses,
 
 my_process = """
 import model  DMsimp_s_spin1_SVJ
-define j = g u c d b t s u~ c~ d~ b~ s~ t~
+define j = g u c d b s u~ c~ d~ b~ s~ 
 generate p p > xd xd~
-add process p p > xd xd~ j
-add process p p > xd xd~ j j
+generate p p > xd xd~ j
+generate p p > xd xd~ j j
 output -f
 """
 
@@ -87,6 +86,10 @@ init = True
 for line in oldlhe:
             if '5000521' in line:
                 line = line.replace('5000521','4900101')                           
+            if '4900211' in line:
+                line = line.replace('4900211','51')                           
+            if '4900213' in line:
+                line = line.replace('4900213','53')                           
             newlhe.write(line)
 oldlhe.close()
 newlhe.close()
@@ -112,7 +115,7 @@ evgenConfig.description = "Semivisible jets s-chan"
 evgenConfig.keywords+=['BSM',"sChannel"]
 evgenConfig.generators+=["MadGraph","Pythia8","EvtGen"]
 evgenConfig.contact  = ['bingxuan.liu@cern.ch']
-evgenConfig.process = "p p --> xd xd~"
+evgenConfig.process = "p p --> xd xd~ j j"
 
 PYTHIA8_nJetMax=2
 PYTHIA8_Process='pp>xdxd~'
@@ -171,14 +174,7 @@ genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0}  91 -4 4".format((1-Rinv)/
 genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0}  91 -5 5".format((1-Rinv)/5)]
 genSeq.Pythia8.Commands+=["4900113:addchannel = 1 {0} 0 53 -53".format(Rinv)] 
 
-genSeq.Pythia8.Commands+=["4900211:onechannel = 1 {0} 91 -3 3".format(1 - Rinv)] # check Rinv syntax
-genSeq.Pythia8.Commands+=["4900211:addchannel = 1 {0} 0 51 -51".format(Rinv)]
-
-genSeq.Pythia8.Commands+=["4900213:onechannel = 1 {0}  91 -1 1".format((1-Rinv)/5)] 
-genSeq.Pythia8.Commands+=["4900213:addchannel = 1 {0}  91 -2 2".format((1-Rinv)/5)]
-genSeq.Pythia8.Commands+=["4900213:addchannel = 1 {0}  91 -3 3".format((1-Rinv)/5)]
-genSeq.Pythia8.Commands+=["4900213:addchannel = 1 {0}  91 -4 4".format((1-Rinv)/5)]
-genSeq.Pythia8.Commands+=["4900213:addchannel = 1 {0}  91 -5 5".format((1-Rinv)/5)]
-genSeq.Pythia8.Commands+=["4900213:addchannel = 1 {0} 0 53 -53".format(Rinv)] 
+genSeq.Pythia8.Commands+=["4900211:addchannel = 1 1.0 0 51 -51"]
+genSeq.Pythia8.Commands+=["4900213:addchannel = 1 1.0 0 53 -53"]
 
 genSeq.Pythia8.Commands+=["Merging:mayRemoveDecayProducts=on"] 
